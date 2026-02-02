@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Submit a Story | Penn State Behrend AI</title>
+  <meta name="description" content="Submit an AI innovation story for the Behrend AI blog (mock form)." />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script defer src="assets/js/submit.js"></script>
+</head>
+<body>
+  <div class="utility-bar">
+    <div class="container utility-inner">
+      <a class="brandmark" href="index.html" aria-label="Return to home">
+        <div class="shield" aria-hidden="true"></div>
+        <div class="brandtext">
+          <div class="brandtext-top">PennState</div>
+          <div class="brandtext-sub">Behrend</div>
+        </div>
+      </a>
+
+      <div class="utility-links" aria-label="Utility navigation">
+        <a class="utility-pill" href="404.html">REPORT A CONCERN</a>
+        <a class="utility-pill" href="404.html">CONTACT US</a>
+        <a class="utility-pill" href="404.html">VISIT US</a>
+        <a class="utility-pill" href="404.html">APPLY NOW</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="container nav-inner">
+      <nav class="nav" aria-label="Primary">
+        <a class="nav-link" href="index.html#ai-statement">AI Statement</a>
+        <a class="nav-link" href="404.html">Faculty</a>
+        <a class="nav-link" href="404.html">Staff</a>
+        <a class="nav-link" href="404.html">Students</a>
+        <a class="nav-link" href="404.html">Training</a>
+        <a class="nav-link nav-link-cta" href="blog/">Blog</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero hero-small" role="region" aria-label="Submit story hero">
+      <div class="hero-bg blog-hero" aria-hidden="true"></div>
+      <div class="container hero-content">
+        <h1 class="hero-title">Submit a Story</h1>
+        <p class="hero-subtitle">Share an AI innovation or research highlight for potential posting in our blog.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="form-layout">
+          <div class="form-card">
+            <h2 class="section-title section-title-left">Story Submission Form</h2>
+            <p class="section-kicker section-kicker-left">
+              This is a <strong>mock</strong> form for the prototype site. Submissions are not sent anywhere yet.
+            </p>
+
+            <form id="storyForm" class="story-form" novalidate>
+              <div class="field">
+                <label for="email" class="label">Email</label>
+                <input id="email" name="email" class="input" type="email" placeholder="you@psu.edu" required />
+                <div class="help" data-err="email" hidden>Please enter a valid email.</div>
+              </div>
+
+              <div class="field">
+                <div class="label">Role</div>
+                <div class="radio-row" role="radiogroup" aria-label="Role">
+                  <label class="radio-pill">
+                    <input type="radio" name="role" value="Professor" required />
+                    <span>Professor</span>
+                  </label>
+                  <label class="radio-pill">
+                    <input type="radio" name="role" value="Student" required />
+                    <span>Student</span>
+                  </label>
+                </div>
+                <div class="help" data-err="role" hidden>Please choose a role.</div>
+              </div>
+
+              <div class="field">
+                <label for="title" class="label">Article Title</label>
+                <input id="title" name="title" class="input" type="text" placeholder="Short, clear headline" required minlength="6" />
+                <div class="help" data-err="title" hidden>Please enter an article title (at least 6 characters).</div>
+              </div>
+
+              <div class="field">
+                <label for="desc" class="label">Description</label>
+                <textarea id="desc" name="desc" class="textarea" rows="6" placeholder="What is the innovation? Why does it matter? Include links if relevant." required minlength="20"></textarea>
+                <div class="help" data-err="desc" hidden>Please enter a description (at least 20 characters).</div>
+              </div>
+
+              <div class="form-actions">
+                <button class="btn btn-primary" type="submit">Submit</button>
+                <a class="btn btn-quiet" href="blog/">Back to Blog</a>
+              </div>
+
+              <div id="success" class="success" role="status" aria-live="polite" hidden>
+                Thanks! Your submission was recorded locally (mock). We’ll wire this up to a real workflow later.
+              </div>
+            </form>
+          </div>
+
+          <aside class="form-aside" aria-label="Submission tips">
+            <div class="aside-card">
+              <h3 class="aside-title">Tips</h3>
+              <ul class="tips">
+                <li>Keep the title specific (what + why).</li>
+                <li>In the description, include the source (paper, repo, press release).</li>
+                <li>Note any Penn State / Behrend connection if applicable.</li>
+              </ul>
+            </div>
+
+            <div class="aside-card">
+              <h3 class="aside-title">Quick Links</h3>
+              <a class="aside-link" href="index.html">← Home</a>
+              <a class="aside-link" href="blog/">AI Innovation Blog</a>
+              <a class="aside-link" href="404.html">Guidelines (placeholder)</a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="footer-shield" aria-hidden="true"></span>
+        <span class="footer-name">PennState</span>
+      </div>
+      <div class="footer-links">
+        <a href="404.html">Privacy Statement</a>
+        <a href="404.html">Non Discrimination</a>
+        <a href="404.html">Accessibility</a>
+        <a href="404.html">Legal Statements</a>
+      </div>
+      <div class="footer-meta">Penn State Erie, The Behrend College | The Pennsylvania State University © 2026</div>
+    </div>
+  </footer>
+</body>
+</html>

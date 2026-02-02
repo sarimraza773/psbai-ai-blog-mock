@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Innovation Blog | Penn State Behrend AI</title>
+  <meta name="description" content="Dummy blog page: social-style feed for AI innovations." />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <script defer src="../assets/js/blog.js"></script>
+</head>
+<body>
+  <div class="utility-bar">
+    <div class="container utility-inner">
+      <a class="brandmark" href="../index.html" aria-label="Return to home">
+        <div class="shield" aria-hidden="true"></div>
+        <div class="brandtext">
+          <div class="brandtext-top">PennState</div>
+          <div class="brandtext-sub">Behrend</div>
+        </div>
+      </a>
+
+      <div class="utility-links" aria-label="Utility navigation">
+        <a class="utility-pill" href="../404.html">REPORT A CONCERN</a>
+        <a class="utility-pill" href="../404.html">CONTACT US</a>
+        <a class="utility-pill" href="../404.html">VISIT US</a>
+        <a class="utility-pill" href="../404.html">APPLY NOW</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="container nav-inner">
+      <nav class="nav" aria-label="Primary">
+        <a class="nav-link" href="../index.html#ai-statement">AI Statement</a>
+        <a class="nav-link" href="../404.html">Faculty</a>
+        <a class="nav-link" href="../404.html">Staff</a>
+        <a class="nav-link" href="../404.html">Students</a>
+        <a class="nav-link" href="../404.html">Training</a>
+        <a class="nav-link nav-link-cta" href="./">Blog</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero hero-small" role="region" aria-label="Blog hero">
+      <div class="hero-bg blog-hero" aria-hidden="true"></div>
+      <div class="container hero-content">
+        <h1 class="hero-title">AI Innovation Blog</h1>
+        <p class="hero-subtitle">A social-style feed of new AI innovations, research highlights, and quick explainers.</p>
+
+        <div class="blog-controls" aria-label="Blog controls">
+          <input id="q" class="input" type="search" placeholder="Search posts…" />
+          <select id="tag" class="select" aria-label="Filter by tag">
+            <option value="">All tags</option>
+            <option>GenAI</option>
+            <option>Computer Vision</option>
+            <option>Healthcare</option>
+            <option>Education</option>
+            <option>Robotics</option>
+          </select>
+          <button id="clear" class="btn btn-light" type="button">Clear</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="blog-layout">
+          <!-- MAIN COLUMN -->
+          <div>
+            <div class="feed-header">
+              <h2 class="section-title section-title-left feed-title">Feed</h2>
+              <div class="feed-tabs" role="tablist" aria-label="Feed sections">
+                <button class="tab active" role="tab" aria-selected="true" data-tab="latest">Latest</button>
+                <button class="tab" role="tab" aria-selected="false" data-tab="hot">Hot</button>
+                <button class="tab" role="tab" aria-selected="false" data-tab="categories">Categories</button>
+                <button class="tab" role="tab" aria-selected="false" data-tab="archives">Archives</button>
+              </div>
+            </div>
+
+            <p class="section-kicker section-kicker-left feed-kicker">
+              Dummy posts for layout review. Use search + tag filter, or switch sections above.
+            </p>
+
+            <!-- LATEST -->
+            <div class="tab-panel" id="panel-latest" role="tabpanel">
+              <div id="postListLatest" class="post-list" aria-live="polite"></div>
+            </div>
+
+            <!-- HOT -->
+            <div class="tab-panel" id="panel-hot" role="tabpanel" hidden>
+              <div id="postListHot" class="post-list" aria-live="polite"></div>
+            </div>
+
+            <!-- CATEGORIES -->
+            <div class="tab-panel" id="panel-categories" role="tabpanel" hidden>
+              <div class="category-bar" aria-label="Category buttons">
+                <button class="cat-btn active" type="button" data-cat="">All</button>
+                <button class="cat-btn" type="button" data-cat="GenAI">GenAI</button>
+                <button class="cat-btn" type="button" data-cat="Computer Vision">Computer Vision</button>
+                <button class="cat-btn" type="button" data-cat="Healthcare">Healthcare</button>
+                <button class="cat-btn" type="button" data-cat="Education">Education</button>
+                <button class="cat-btn" type="button" data-cat="Robotics">Robotics</button>
+                <button class="cat-btn" type="button" data-cat="Policy & Ethics">Policy & Ethics</button>
+                <button class="cat-btn" type="button" data-cat="Security">Security</button>
+              </div>
+
+              <div id="postListCategories" class="post-list" aria-live="polite"></div>
+            </div>
+
+            <!-- ARCHIVES -->
+            <div class="tab-panel" id="panel-archives" role="tabpanel" hidden>
+              <div class="archives-layout">
+                <div class="archives-list" aria-label="Archive months">
+                  <button class="archive-btn active" type="button" data-archive="all">All</button>
+                  <button class="archive-btn" type="button" data-archive="2026-02">Feb 2026</button>
+                  <button class="archive-btn" type="button" data-archive="2026-01">Jan 2026</button>
+                  <button class="archive-btn" type="button" data-archive="2025-12">Dec 2025</button>
+                </div>
+                <div>
+                  <div class="archives-note">Pick a month to filter posts.</div>
+                  <div id="postListArchives" class="post-list" aria-live="polite"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SIDEBAR -->
+          <aside class="blog-aside" aria-label="Sidebar">
+            <div class="aside-card">
+              <h3 class="aside-title">Subscribe</h3>
+              <p class="aside-text">This is a dummy UI. Later we can connect to a real newsletter tool.</p>
+              <form class="mini-form" onsubmit="return false;">
+                <label class="sr-only" for="email">Email</label>
+                <input id="email" class="input" type="email" placeholder="you@psu.edu" />
+                <button class="btn btn-primary" type="button">Subscribe</button>
+              </form>
+            </div>
+
+            <div class="aside-card">
+              <h3 class="aside-title">Quick Links</h3>
+              <a class="aside-link" href="../index.html">← Back to Home</a>
+              <a class="aside-link" href="../submit-story.html">Submit a Story</a>
+              <a class="aside-link" href="../404.html">Archive (placeholder)</a>
+            </div>
+
+            <div class="aside-card">
+              <h3 class="aside-title">About this feed</h3>
+              <p class="aside-text">
+                Each post includes <strong>Like</strong>, <strong>Comment</strong>, and <strong>Share</strong> actions. Likes and saved items are stored locally in your browser.
+              </p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="footer-shield" aria-hidden="true"></span>
+        <span class="footer-name">PennState</span>
+      </div>
+      <div class="footer-links">
+        <a href="../404.html">Privacy Statement</a>
+        <a href="../404.html">Non Discrimination</a>
+        <a href="../404.html">Accessibility</a>
+        <a href="../404.html">Legal Statements</a>
+      </div>
+      <div class="footer-meta">Penn State Erie, The Behrend College | The Pennsylvania State University © 2026</div>
+    </div>
+  </footer>
+</body>
+</html>
