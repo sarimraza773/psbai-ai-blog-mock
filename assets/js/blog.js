@@ -1,6 +1,5 @@
-// Blog page interactivity: search + tag filter + social actions + sections (Latest/Hot/Categories/Archives)
+// News page interactivity: search + tag filter + social actions + sections (Latest/Hot/Archives)
 (function(){
-  const STORAGE_SAVED = 'psbai_saved_posts_v2';
   const STORAGE_LIKES = 'psbai_like_counts_v1';
 
   const posts = [
@@ -19,26 +18,16 @@
 
   const $latest = document.getElementById('postListLatest');
   const $hot = document.getElementById('postListHot');
-  const $cats = document.getElementById('postListCategories');
   const $arch = document.getElementById('postListArchives');
 
   const panels = {
     latest: document.getElementById('panel-latest'),
     hot: document.getElementById('panel-hot'),
-    categories: document.getElementById('panel-categories'),
     archives: document.getElementById('panel-archives'),
   };
 
   const tabBtns = Array.from(document.querySelectorAll('.tab[data-tab]'));
-  const catBtns = Array.from(document.querySelectorAll('.cat-btn[data-cat]'));
   const archiveBtns = Array.from(document.querySelectorAll('.archive-btn[data-archive]'));
-
-  // Local persistence helpers
-  const loadSet = (key) => {
-    try { return new Set(JSON.parse(localStorage.getItem(key) || '[]')); }
-    catch { return new Set(); }
-  };
-  const saveSet = (key, set) => localStorage.setItem(key, JSON.stringify(Array.from(set)));
 
   const loadMap = (key) => {
     try { return JSON.parse(localStorage.getItem(key) || '{}'); }
@@ -46,17 +35,13 @@
   };
   const saveMap = (key, map) => localStorage.setItem(key, JSON.stringify(map));
 
-  let saved = loadSet(STORAGE_SAVED);
   let likeCounts = loadMap(STORAGE_LIKES);
 
-  // Initialize likes with seeds if absent
   posts.forEach(p => {
     if (likeCounts[p.id] == null) likeCounts[p.id] = p.likesSeed;
   });
   saveMap(STORAGE_LIKES, likeCounts);
 
-  // Global filters
-  let activeCategory = '';
   let activeArchive = 'all';
 
   const getTextQuery = () => ($q ? $q.value : '').trim().toLowerCase();
@@ -70,7 +55,6 @@
     return okQ && okT;
   };
 
-  const matchesCategory = (post) => !activeCategory || post.primary === activeCategory || post.tags.includes(activeCategory);
   const matchesArchive = (post) => activeArchive === 'all' || post.archive === activeArchive;
 
   const sortLatest = (arr) => arr.slice().sort((a,b)=> (a.date < b.date ? 1 : -1));
@@ -87,16 +71,9 @@
     return d;
   };
 
-  // Social action handlers
   const onLike = (id) => {
     likeCounts[id] = (likeCounts[id] || 0) + 1;
     saveMap(STORAGE_LIKES, likeCounts);
-    renderAll();
-  };
-
-  const onSave = (id) => {
-    if (saved.has(id)) saved.delete(id); else saved.add(id);
-    saveSet(STORAGE_SAVED, saved);
     renderAll();
   };
 
@@ -104,16 +81,14 @@
     const url = `${window.location.origin}${window.location.pathname}#${id}`;
     try {
       if (navigator.share) {
-        await navigator.share({ title: 'AI Innovation Blog', text: 'Check this post', url });
+        await navigator.share({ title: 'AI Innovation News', text: 'Check this post', url });
       } else if (navigator.clipboard) {
         await navigator.clipboard.writeText(url);
         alert('Link copied to clipboard!');
       } else {
         prompt('Copy this link:', url);
       }
-    } catch (e) {
-      // user canceled share – ignore
-    }
+    } catch (e) {}
   };
 
   const onToggleComments = (btn) => {
@@ -123,8 +98,7 @@
     const open = panel.getAttribute('data-open') === 'true';
     panel.setAttribute('data-open', String(!open));
     panel.hidden = open;
-    btn.textContent = open ? `Comment ` : `Hide `;
-    // keep count badge
+    btn.textContent = open ? 'Comment ' : 'Hide ';
     const span = document.createElement('span');
     span.className = 'count';
     span.textContent = (posts.find(p=>p.id===id)?.commentsSeed ?? 0);
@@ -140,9 +114,7 @@
     }
 
     list.forEach(p => {
-      const isSaved = saved.has(p.id);
       const likes = likeCounts[p.id] || 0;
-
       const article = document.createElement('article');
       article.className = 'post';
       article.id = p.id;
@@ -153,9 +125,8 @@
         <div class="post-top">
           <div>
             <h3 class="post-title">${p.title}</h3>
-            <div class="post-meta">${p.displayDate}${isSaved ? ' • <span class="saved-badge">Saved</span>' : ''}</div>
+            <div class="post-meta">${p.displayDate}</div>
           </div>
-          <button class="btn btn-quiet" data-save="${p.id}" type="button">${isSaved ? 'Unsave' : 'Save'}</button>
         </div>
 
         <div class="post-tags">${tagsHtml}</div>
@@ -178,14 +149,9 @@
           </div>
         </div>
       `;
-
       container.appendChild(article);
     });
 
-    // Bind actions
-    container.querySelectorAll('[data-save]').forEach(btn => {
-      btn.addEventListener('click', ()=> onSave(btn.getAttribute('data-save')));
-    });
     container.querySelectorAll('[data-like]').forEach(btn => {
       btn.addEventListener('click', ()=> onLike(btn.getAttribute('data-like')));
     });
@@ -199,19 +165,11 @@
 
   const renderAll = () => {
     const global = posts.filter(matchesGlobal);
-
-    // Latest and Hot
     renderPosts($latest, sortLatest(global));
     renderPosts($hot, sortHot(global));
-
-    // Categories
-    renderPosts($cats, sortLatest(global.filter(matchesCategory)));
-
-    // Archives
     renderPosts($arch, sortLatest(global.filter(matchesArchive)));
   };
 
-  // Tabs
   const setTab = (name) => {
     tabBtns.forEach(b=>{
       const active = b.getAttribute('data-tab') === name;
@@ -234,20 +192,6 @@
     });
   });
 
-  // Category buttons
-  const setActiveCat = (val) => {
-    activeCategory = val || '';
-    catBtns.forEach(b=>{
-      const isActive = (b.getAttribute('data-cat') || '') === activeCategory;
-      b.classList.toggle('active', isActive);
-    });
-    renderAll();
-  };
-  catBtns.forEach(btn=>{
-    btn.addEventListener('click', ()=> setActiveCat(btn.getAttribute('data-cat') || ''));
-  });
-
-  // Archive buttons
   const setActiveArchive = (val) => {
     activeArchive = val || 'all';
     archiveBtns.forEach(b=>{
@@ -260,7 +204,6 @@
     btn.addEventListener('click', ()=> setActiveArchive(btn.getAttribute('data-archive') || 'all'));
   });
 
-  // Search & tag
   if ($q) $q.addEventListener('input', renderAll);
   if ($tag) $tag.addEventListener('change', renderAll);
   if ($clear) $clear.addEventListener('click', ()=>{
@@ -270,11 +213,4 @@
   });
 
   renderAll();
-
-  // Jump to hash if present
-  if (window.location.hash) {
-    const id = window.location.hash.slice(1);
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
-  }
 })();
